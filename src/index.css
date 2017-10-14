@@ -1,0 +1,53 @@
+@keyframes moveDown {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  1% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  99% {
+    opacity: 1;
+    transform: translateY(570px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(570px);
+  }
+}
+
+
+#root {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  margin: auto;
+  background: #eee;
+}
+
+#root > .cock,
+#root > .food {
+  position: absolute;
+  width: 10px;
+  height: 30px;
+  animation-name: moveDown;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+#root > .cock {
+  background: red;
+}
+
+#root > .food {
+  background: green;
+}
+
+#artem {
+  position: absolute;
+  bottom: 0;
+  width: 100px;
+  height: 10px;
+  background: brown;
+}
