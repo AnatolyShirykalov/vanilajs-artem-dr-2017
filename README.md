@@ -1,6 +1,3 @@
-# Тесты
-React, Redux, Redux-Form, Webpack
-
 # Запуск
 
 ```bash
