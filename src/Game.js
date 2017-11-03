@@ -1,10 +1,12 @@
 import _ from 'lodash'
 import * as settings from './settings'
 import Enemy from './Enemy'
+import Chip from './Chip'
 
 export default class Game {
   constructor(){
     this.health = settings.health;
+    this.chip = new Chip(settings);
     this.alcos = settings.alcos;
     this.root = settings.root;
     this.items = settings.items;
@@ -13,13 +15,13 @@ export default class Game {
     this.enemies = []
     this.bar = this.addStat('health-bar', this.health)
     this.alcoBar = this.addStat('alco-bar', this.alcos)
-    this.addEnemies(100);
+    this.addEnemies(1000, 4000);
     this.initControls();
   }
 
   addArtem(left) {
     this.artem = document.createElement('div');
-    this.artem.id = 'artem';
+    this.artem.id = 'artem-b';
     this.artem.style = `left: ${left}px`;
     this.root.appendChild(this.artem);
   }
@@ -32,15 +34,15 @@ export default class Game {
     return el;
   }
 
-  addEnemies(size) {
+  addEnemies(size, baseDelay) {
     if (!this.enemies) this.enemies = [];
-    _.times(size, id => {
+    this.enemies = _.concat(this.enemies, _.times(size, id => {
       const item = _.sample(this.items)
-      const enemy = new Enemy({id, item, root: this.root});
+      const enemy = new Enemy({id, item, root: this.root, baseDelay});
       enemy.el.addEventListener('animationstart', this.onAnimationStart);
       this.setAnimationEnd(enemy);
       return enemy;
-    })
+    }))
   }
 
   onAnimationStart(event) {
@@ -57,7 +59,9 @@ export default class Game {
       const elLeft = parseInt(elStyle.getPropertyValue('left'))
       if (left + width < elLeft || left > elLeft + 10) return;
       if (el.classList.contains('alco')) this.alcos+=1;
-      this.health += parseInt(el.getAttribute('data-diff'))
+      const delt = parseInt(el.getAttribute('data-diff'))
+      this.health += delt;
+      this.chip.changeHealth(delt);
       this.bar.innerHTML = this.health;
       this.alcoBar.innerHTML = this.alcos;
     })
@@ -90,6 +94,7 @@ export default class Game {
           document.querySelectorAll('#root > .axe.started, #root > .shuriken.started'),
           (e) => e.remove()
         )
+        _this.chip.drink();
       }
     })
   }

@@ -1,0 +1,15 @@
+#artem {
+  margin-top: 50px;
+  margin-left: 50px;
+  position: relative;
+}
+
+#artem .hidden {
+  opacity: 0;
+}
+
+#artem.drunk-20 div{ animation-duration: 500ms;}
+#artem.drunk-15 div{ animation-duration: 250ms;}
+#artem.drunk-10 div{ animation-duration: 125ms;}
+#artem.drunk-5 div{ animation-duration: 50ms;}
+#artem.drunk-0 div{ animation-duration: 25ms;}

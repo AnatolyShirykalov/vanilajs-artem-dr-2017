@@ -1,3 +1,4 @@
+*.psd
 tmp/data.js
 *.swp
 node_modules

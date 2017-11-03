@@ -1,4 +1,5 @@
 export const health = 15000;
+export const volume = 25;
 export const alcos = 0;
 export const root = document.getElementById('root')
 export const items = [
